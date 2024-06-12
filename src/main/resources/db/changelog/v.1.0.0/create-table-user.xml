@@ -23,7 +23,8 @@
                 <constraints nullable="false"/>
             </column>
 
-            <column name="is_active" type="boolean" defaultValue="false">
+<!--            <column name="is_active" type="boolean" defaultValue="false">-->
+            <column name="is_active" type="bigint" defaultValue="0">
                 <constraints nullable="false"/>
             </column>
 

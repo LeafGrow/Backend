@@ -15,7 +15,8 @@
                 <constraints nullable="false"/>
             </column>
 
-            <column name="is_important" type="boolean" defaultValueBoolean="false"/>
+<!--            <column name="is_important" type="boolean" defaultValueBoolean="false"/>-->
+            <column name="is_important" type="bigint" defaultValueBoolean="0"/>
 
             <column name="day" type="int">
                 <constraints unique="true"/>

@@ -15,7 +15,8 @@
 
                 <column name="instruction_id" type="bigint"/>
 
-                <column name="is_active" type="boolean" defaultValueBoolean="false"/>
+<!--                <column name="is_active" type="boolean" defaultValueBoolean="false"/>-->
+                <column name="is_active" type="bigint" defaultValueBoolean="0"/>
 
         </createTable>
     </changeSet>
