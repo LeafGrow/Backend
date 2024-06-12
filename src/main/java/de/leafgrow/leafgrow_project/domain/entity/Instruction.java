@@ -18,7 +18,8 @@ public class Instruction {
     private String content;
 
     @Column(name = "is_important")
-    private boolean isImportant;
+    //private boolean isImportant;
+    private int isImportant;
 
     @Column(name = "day")
     private int day;
@@ -26,7 +27,7 @@ public class Instruction {
     @Column(name = "image")
     private String image;
 
-    public Instruction(Long id, String content, boolean isImportant, int day, String image) {
+    public Instruction(Long id, String content, int isImportant, int day, String image) {
         this.id = id;
         this.content = content;
         this.isImportant = isImportant;
@@ -53,11 +54,11 @@ public class Instruction {
         this.content = content;
     }
 
-    public boolean isImportant() {
+    public int isImportant() {
         return isImportant;
     }
 
-    public void setImportant(boolean important) {
+    public void setImportant(int important) {
         isImportant = important;
     }
 
@@ -79,31 +80,21 @@ public class Instruction {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
+        if(this == o) return true;
+        if(o == null || getClass() != o.getClass()) return false;
         Instruction that = (Instruction) o;
-
-        if (isImportant != that.isImportant) return false;
-        if (day != that.day) return false;
-        if (!Objects.equals(id, that.id)) return false;
-        if (!Objects.equals(content, that.content)) return false;
-        return Objects.equals(image, that.image);
+        return isImportant == that.isImportant && day == that.day && Objects.equals(id, that.id) && Objects.equals(content, that.content) && Objects.equals(image, that.image);
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (content != null ? content.hashCode() : 0);
-        result = 31 * result + (isImportant ? 1 : 0);
-        result = 31 * result + day;
-        result = 31 * result + (image != null ? image.hashCode() : 0);
-        return result;
+        return Objects.hash(id, content, isImportant, day, image);
     }
 
     @Override
     public String toString() {
-        return String.format("Instruction: ID - %d, content - %s, day - %d, image - %s, important - %s",
-                id, content, day, image, isImportant ? "yes" : "no");
+        return String.format("Instruction: ID - %d, content - %s, day - %d, " +
+                        "image - %s, important - %s",
+                id, content, day, image, isImportant == 1 ? "yes" : "no");
     }
 }

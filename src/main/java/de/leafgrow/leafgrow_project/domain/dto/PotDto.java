@@ -4,10 +4,10 @@ import de.leafgrow.leafgrow_project.domain.entity.Instruction;
 
 public class PotDto {
     private Long id;
-    private boolean isActive;
+    private int isActive;
     private Instruction instruction;
 
-    public PotDto(Long id, boolean isActive, Instruction instruction) {
+    public PotDto(Long id, int isActive, Instruction instruction) {
         this.id = id;
         this.isActive = isActive;
         this.instruction = instruction;
@@ -17,11 +17,11 @@ public class PotDto {
         return id;
     }
 
-    public boolean isActive() {
+    public int isActive() {
         return isActive;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(int active) {
         isActive = active;
     }
 

@@ -22,12 +22,13 @@ public class Pot {
     private Instruction instruction;
 
     @Column(name = "is_active")
-    private boolean isActive;
+    //private boolean isActive;
+    private int isActive;
 
     public Pot() {
     }
 
-    public Pot(Long id, User user, Instruction instruction, boolean isActive) {
+    public Pot(Long id, User user, Instruction instruction, int isActive) {
         this.id = id;
         this.user = user;
         this.instruction = instruction;
@@ -54,39 +55,30 @@ public class Pot {
         this.instruction = instruction;
     }
 
-    public boolean isActive() {
+    public int isActive() {
         return isActive;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(int active) {
         isActive = active;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
+        if(this == o) return true;
+        if(o == null || getClass() != o.getClass()) return false;
         Pot pot = (Pot) o;
-
-        if (isActive != pot.isActive) return false;
-        if (!Objects.equals(id, pot.id)) return false;
-        if (!Objects.equals(user, pot.user)) return false;
-        return Objects.equals(instruction, pot.instruction);
+        return isActive == pot.isActive && Objects.equals(id, pot.id) && Objects.equals(user, pot.user) && Objects.equals(instruction, pot.instruction);
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (user != null ? user.hashCode() : 0);
-        result = 31 * result + (instruction != null ? instruction.hashCode() : 0);
-        result = 31 * result + (isActive ? 1 : 0);
-        return result;
+        return Objects.hash(id, user, instruction, isActive);
     }
 
     @Override
     public String toString() {
         return String.format("Pot: ID - %d, user - %s, instruction - %s, active - %s",
-                id, user, instruction, isActive ? "yes" : "no");
+                id, user, instruction, isActive == 1 ? "yes" : "no");
     }
 }

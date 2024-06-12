@@ -35,13 +35,14 @@ public class User implements UserDetails {
     private Set<Role> roles;
 
     @Column(name = "is_active")
-    private boolean isActive;
+    //private boolean isActive;
+    private int isActive;
 
-    public boolean isActive() {
+    public int isActive() {
         return isActive;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(int active) {
         isActive = active;
     }
 
@@ -114,33 +115,20 @@ public class User implements UserDetails {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
+        if(this == o) return true;
+        if(o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-
-        if (isActive != user.isActive) return false;
-        if (!Objects.equals(id, user.id)) return false;
-        if (!Objects.equals(username, user.username)) return false;
-        if (!Objects.equals(email, user.email)) return false;
-        if (!Objects.equals(password, user.password)) return false;
-        return Objects.equals(roles, user.roles);
+        return isActive == user.isActive && Objects.equals(id, user.id) && Objects.equals(username, user.username) && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(roles, user.roles);
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (username != null ? username.hashCode() : 0);
-        result = 31 * result + (email != null ? email.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + (roles != null ? roles.hashCode() : 0);
-        result = 31 * result + (isActive ? 1 : 0);
-        return result;
+        return Objects.hash(id, username, email, password, roles, isActive);
     }
 
     @Override
     public String toString() {
         return String.format("User: ID - %d, username - %s, email - %s, active - %s, role - %s",
-                id, username, email, isActive ? "yes" : "no", roles);
+                id, username, email, isActive == 1? "yes" : "no", roles);
     }
 }
