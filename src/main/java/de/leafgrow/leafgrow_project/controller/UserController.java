@@ -15,9 +15,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/auth")
-@Tag(name = "UserController", description = "Controller for some operation with user.")
+@Tag(name = "UserController", description = "Controller for some operation " +
+        "with user.")
 public class UserController {
     private UserService service;
     private BCryptPasswordEncoder encoder;
@@ -34,15 +38,18 @@ public class UserController {
     )
     public ResponseEntity<User> getUserInfo() {
 
-        //  Fix метод getUserInfo для использования информации проверенного пользователя.
-        //  Удаляем параметр @RequestBody, поскольку email должен быть получен из контекста аутентификации.
+        //  Fix метод getUserInfo для использования информации проверенного
+        //  пользователя.
+        //  Удаляем параметр @RequestBody, поскольку email должен быть
+        //  получен из контекста аутентификации.
 
         try {
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            Authentication authentication =
+                    SecurityContextHolder.getContext().getAuthentication();
             String userContent = authentication.getName();
             User user = service.loadUserByEmail(userContent);
             return ResponseEntity.ok(user);
-        } catch (Exception e) {
+        } catch(Exception e) {
             throw new RuntimeException(e.getMessage());
         }
     }
@@ -54,18 +61,21 @@ public class UserController {
     )
     public ResponseEntity<Response> deleteUser() {
         try {
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            Authentication authentication =
+                    SecurityContextHolder.getContext().getAuthentication();
             String email = authentication.getName();
 
             User user = service.loadUserByEmail(email);
 
-            if (user == null) {
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found.");
+            if(user == null) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User" +
+                        " not found.");
             }
 
             service.delete(user);
-            return ResponseEntity.ok(new Response("User was successfully deleted"));
-        } catch (ResponseStatusException e) {
+            return ResponseEntity.ok(new Response("User was successfully " +
+                    "deleted"));
+        } catch(ResponseStatusException e) {
             throw e;
         }
     }
@@ -78,19 +88,22 @@ public class UserController {
     public ResponseEntity<Response> changeUserPassword(@RequestBody ChangePasswordRequestDto newPassword) {
 
         try {
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            Authentication authentication =
+                    SecurityContextHolder.getContext().getAuthentication();
             String email = authentication.getName();
 
             User user = service.loadUserByEmail(email);
-            if (user == null) {
-                return ResponseEntity.status(404).body(new Response("User not found"));
+            if(user == null) {
+                return ResponseEntity.status(404).body(new Response("User not" +
+                        " found"));
             }
 
             user.setPassword(encoder.encode(newPassword.getNewPassword()));
             service.save(user);
 
-            return ResponseEntity.ok(new Response("Password was successfully changed"));
-        } catch (Exception e) {
+            return ResponseEntity.ok(new Response("Password was successfully " +
+                    "changed"));
+        } catch(Exception e) {
             throw new RuntimeException(e.getMessage());
         }
     }
@@ -99,23 +112,27 @@ public class UserController {
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(
             summary = "delete user by email",
-            description = "Deleting a user by their email, accessible only to ADMIN users"
+            description = "Deleting a user by their email, accessible only to" +
+                    " ADMIN users"
     )
-    public ResponseEntity<Response> deleteUserByEmail(@RequestParam String email) {
+    public ResponseEntity<Map<String, Object>> deleteUserByEmail(@RequestParam String email) {
         try {
             User user = service.loadUserByEmail(email);
 
-            if (user == null) {
+            if(user == null) {
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found.");
             }
 
             service.delete(user);
-            return ResponseEntity.ok(new Response("User was successfully deleted"));
-        } catch (ResponseStatusException e) {
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("message", "User was successfully deleted");
+            response.put("deletedUser", user);
+
+            return ResponseEntity.ok(response);
+        } catch(ResponseStatusException e) {
             throw e;
         }
     }
-
-
-
 }
+
