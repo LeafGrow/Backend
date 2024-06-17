@@ -8,11 +8,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -96,4 +94,28 @@ public class UserController {
             throw new RuntimeException(e.getMessage());
         }
     }
+
+    @DeleteMapping("/admin/delete-user-by-email")
+    @PreAuthorize("hasRole('ADMIN')")
+    @Operation(
+            summary = "delete user by email",
+            description = "Deleting a user by their email, accessible only to ADMIN users"
+    )
+    public ResponseEntity<Response> deleteUserByEmail(@RequestParam String email) {
+        try {
+            User user = service.loadUserByEmail(email);
+
+            if (user == null) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found.");
+            }
+
+            service.delete(user);
+            return ResponseEntity.ok(new Response("User was successfully deleted"));
+        } catch (ResponseStatusException e) {
+            throw e;
+        }
+    }
+
+
+
 }
