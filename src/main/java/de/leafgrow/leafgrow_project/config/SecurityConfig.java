@@ -59,6 +59,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/pots/create").authenticated()
                         .requestMatchers(HttpMethod.POST, "/api/pots/{id}/skip-day").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/my").authenticated()
+                        .requestMatchers("/images/**").permitAll() // Разрешить доступ к статическим ресурсам
                         .anyRequest().authenticated())
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .addFilterAfter(filter, UsernamePasswordAuthenticationFilter.class)

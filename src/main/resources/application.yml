@@ -36,5 +36,15 @@ spring:
 key:
   access: ${KEY_ACCESS}
   refresh: ${KEY_REFRESH}
+  web:
+    resources:
+      static-locations: classpath:/static/
+      cache:
+        period: PT1H  # Cache period, например, 1 час
+        cachecontrol:
+          max-age: 3600  # Max-age для кэширования в секундах
+          no-transform: true
+          must-revalidate: true
+
 
 #-Dspring.profiles.active=dev
