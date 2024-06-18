@@ -56,6 +56,15 @@ public class PotServiceImpl implements PotService {
         }
     }
 
+    @Transactional
+    public Pot createPotForAdmin(User user){
+        Pot pot = new Pot();
+        pot.setUser(user);
+        pot.setInstruction(instructionRepository.findByDay(1));
+        potRepository.save(pot);
+        return pot;
+    }
+
     @Override
     @Transactional
     public Pot activatePot(Long potId) {
@@ -65,7 +74,7 @@ public class PotServiceImpl implements PotService {
         potRepository.save(pot);
 
         scheduler.scheduleAtFixedRate(() -> updateInstruction(pot), 24, 24, TimeUnit.HOURS);
-        //scheduler.scheduleAtFixedRate(() -> updateInstruction(pot), 24, 24,TimeUnit.SECONDS);
+        //scheduler.scheduleAtFixedRate(() -> updateInstruction(pot), 24, 24, TimeUnit.SECONDS);
 
         return potRepository.save(pot);
 
