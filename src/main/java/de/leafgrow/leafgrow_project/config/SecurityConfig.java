@@ -50,6 +50,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/auth/profile").authenticated() // Эндпоинт /api/auth/profile доступен для прошедших проверку подлинности пользователей
                         .requestMatchers(HttpMethod.PATCH, "/api/auth/profile/change-password").authenticated()
                         .requestMatchers(HttpMethod.DELETE, "/api/auth/profile/delete-user").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/api/auth/admin/delete-user-by-email").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/instructions/{day}").authenticated()
                         .requestMatchers(HttpMethod.GET, "/api/pots/{id}/instruction").authenticated()

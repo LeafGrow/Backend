@@ -19,8 +19,8 @@ spring:
         ddl-auto: auto
         dialect: org.hibernate.dialect.PostgreSQLDialect
   mail:
-    username: leafgrow.project@gmail.com
-    password: yhwnykriinuapexe
+    username: ${APP_EMAIL}
+    password: ${APP_EMAIL_PASSWORD}
     host: smtp.gmail.com
     port: 587
     properties:
@@ -34,7 +34,7 @@ spring:
             protocols: TLSv1.2
             trust: smtp.gmail.com
 key:
-  access: vCzzRbdnRQnZaz0yMft6CM6XOFxH5RFXlEp2SfJaENg=
-  refresh: w4nW81yrLjMg5OEIoiZEiGSHCOgZJwqadOF2Y3LhSUQ=
+  access: ${KEY_ACCESS}
+  refresh: ${KEY_REFRESH}
 
 #-Dspring.profiles.active=dev
