@@ -7,13 +7,18 @@ import de.leafgrow.leafgrow_project.domain.entity.User;
 import de.leafgrow.leafgrow_project.repository.PotRepository;
 import de.leafgrow.leafgrow_project.service.interfaces.PotService;
 import de.leafgrow.leafgrow_project.service.interfaces.UserService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -90,6 +95,34 @@ public class PotController {
         Pot pot = potOptional.get();
         service.skipDay(pot);
         return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/admin/delete-pot-by-id")
+    @PreAuthorize("hasRole('ADMIN')")
+    @Operation(
+            summary = "delete Pot by id",
+            description = "Deleting a pot by their id, accessible only to" +
+                    " ADMIN users"
+    )
+    public ResponseEntity<Map<String, Object>> deletePot(@RequestParam Long id) {
+        try {
+            Optional<Pot> potOptional = repository.findById(id);
+
+            if (potOptional.isEmpty()) {
+                return ResponseEntity.notFound().build();
+            }
+
+            repository.deleteById(id);
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("message", "Pot was successfully deleted");
+            response.put("deletedPot", potOptional);
+
+            return ResponseEntity.ok(response);
+
+        } catch(ResponseStatusException e) {
+            throw e;
+        }
     }
 
 
