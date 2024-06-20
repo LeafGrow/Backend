@@ -58,6 +58,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/pots/{id}/activate").authenticated()
                         .requestMatchers(HttpMethod.POST, "/api/pots/create").authenticated()
                         .requestMatchers(HttpMethod.POST, "/api/pots/{id}/skip-day").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/pots/admin/delete-pot-by-id").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/my").authenticated()
                         .requestMatchers("/images/**").permitAll() // Разрешить доступ к статическим ресурсам
                         .anyRequest().authenticated())
