@@ -28,7 +28,7 @@ public class ConfirmationServiceImpl implements ConfirmationService {
     public User confirmUser(String code) {
         ConfirmationCode confirmationCode = repository.findByCode(code);
         if (confirmationCode == null || confirmationCode.getExpired().isBefore(LocalDateTime.now())) {
-            throw new RuntimeException("Недействительный код подтверждения или истек срок его действия.");
+            throw new RuntimeException("The verification code is invalid or has expired.");
         }
 
         User user = confirmationCode.getUser();

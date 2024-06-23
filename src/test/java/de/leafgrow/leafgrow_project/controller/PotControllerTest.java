@@ -78,7 +78,7 @@ class PotControllerTest {
 
         when(potRepository.findById(potId)).thenReturn(Optional.of(pot));
 
-        ResponseEntity<Void> response = potController.refreshPot(potId);
+        ResponseEntity<Pot> response = potController.refreshPot(potId);
 
         verify(potService, times(1)).refreshPot(pot);
         assertEquals(HttpStatus.OK, response.getStatusCode());

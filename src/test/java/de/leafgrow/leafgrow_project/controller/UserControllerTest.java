@@ -78,10 +78,10 @@ public class UserControllerTest {
         when(userService.loadUserByEmail(anyString())).thenReturn(mockUser);
         when(encoder.encode(anyString())).thenReturn("encodedPassword");
 
-        ResponseEntity<Response> response = userController.changeUserPassword(passwordRequest);
+        ResponseEntity<Object> response = userController.changeUserPassword(passwordRequest);
 
         assertEquals(200, response.getStatusCodeValue());
-        assertEquals("Password was successfully changed", response.getBody().getMessage());
+        assertEquals("Password was successfully changed", response.getBody().getClass());
         assertEquals("encodedPassword", mockUser.getPassword());
         verify(userService, times(1)).save(mockUser);
     }

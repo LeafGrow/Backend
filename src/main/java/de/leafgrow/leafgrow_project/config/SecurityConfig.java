@@ -47,7 +47,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/register").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/register/confirm").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/register/resent").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/auth/profile").authenticated() // Эндпоинт /api/auth/profile доступен для прошедших проверку подлинности пользователей
+                        .requestMatchers(HttpMethod.GET, "/api/auth/profile").authenticated()
                         .requestMatchers(HttpMethod.PATCH, "/api/auth/profile/change-password").authenticated()
                         .requestMatchers(HttpMethod.DELETE, "/api/auth/profile/delete-user").authenticated()
                         .requestMatchers(HttpMethod.GET, "/swagger-ui/**", "/v3/api-docs/**").permitAll()

@@ -8,14 +8,13 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -35,9 +34,6 @@ public class UserController {
             description = "Receiving info about current user"
     )
     public ResponseEntity<User> getUserInfo() {
-
-        //  Fix метод getUserInfo для использования информации проверенного пользователя.
-        //  Удаляем параметр @RequestBody, поскольку email должен быть получен из контекста аутентификации.
 
         try {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -77,7 +73,7 @@ public class UserController {
             summary = "change user password",
             description = "Changing current user's password"
     )
-    public ResponseEntity<Response> changeUserPassword(@RequestBody ChangePasswordRequestDto newPassword) {
+    public ResponseEntity<Object> changeUserPassword(@RequestBody ChangePasswordRequestDto newPassword) {
 
         try {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -91,7 +87,7 @@ public class UserController {
             user.setPassword(encoder.encode(newPassword.getNewPassword()));
             service.save(user);
 
-            return ResponseEntity.ok(new Response("Password was successfully changed"));
+            return ResponseEntity.ok(user);
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }

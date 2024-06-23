@@ -95,7 +95,6 @@ public class PotServiceImpl implements PotService {
                     emailService.sendImportantEmail(pot.getUser());
                 }
             } else {
-                // Если инструкции на следующий день нет, деактивировать горшок или обнулить его
                 pot.setActive(false);
                 potRepository.save(pot);
             }
@@ -106,7 +105,7 @@ public class PotServiceImpl implements PotService {
     @Transactional
     public void skipDay(Pot pot) {
         int currentDay = pot.getInstruction().getDay();
-        int nextDay = (currentDay % MAX_DAYS) + 1; // Предполагая, что MAX_DAYS — это длина цикла.
+        int nextDay = (currentDay % MAX_DAYS) + 1;
         Instruction nextInstruction = instructionRepository.findByDay(nextDay);
         pot.setInstruction(nextInstruction);
         potRepository.save(pot);

@@ -48,18 +48,16 @@ public class RegistrationController {
             if (!isValidEmail(user.getEmail())) {
                 return ResponseEntity
                         .status(HttpStatus.BAD_REQUEST)
-                        .body(new Response("Некорректный email."));
+                        .body(new Response("Email is incorrect."));
             }
 
             userService.register(user);
             potService.createPotsForUser(user);
             return ResponseEntity.ok(user);
-//            return ResponseEntity
-//                    .ok(new Response("Регистрация успешно завершена. Проверьте ваш email для завершения процесса."));
         } catch (Exception e) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
-                    .body(new Response("Ошибка при регистрации пользователя: " + e.getMessage()));
+                    .body(new Response("Error with user registration: " + e.getMessage()));
         }
     }
 
@@ -76,19 +74,16 @@ public class RegistrationController {
         if (user == null) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
-                    .body(new Response("Пользователь с таким email не найден."));
+                    .body(new Response("User with such an email not found."));
         }
         if (user.isActive()) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
-                    .body(new Response("Этот аккаунт уже активирован."));
+                    .body(new Response("This account is already activated."));
         }
         emailService.sendConfirmationEmail(user);
-        return ResponseEntity.ok(new Response("Подтверждение регистрации было повторно отправлено. Пожалуйста, проверьте вашу почту."));
+        return ResponseEntity.ok(new Response("Registration confirmation has been resent. Please check your mailbox."));
 
-//        User user = userService.loadUserByEmail(email);
-//        emailService.sendConfirmationEmail(user);
-//        return new Response("Registration confirmation has been resent. Please check your mailbox.");
     }
 
     @GetMapping("/confirm")
@@ -100,11 +95,11 @@ public class RegistrationController {
         try {
             User confirmedUser = confirmationService.confirmUser(code);
             return ResponseEntity
-                    .ok(new Response("Аккаунт успешно активирован. Теперь вы можете войти."));
+                    .ok(new Response("Account is successfully activated. Now you can log in."));
         } catch (Exception e) {
             return ResponseEntity
                     .status(HttpStatus.REQUEST_TIMEOUT)
-                    .body(new Response("Ошибка при подтверждении аккаунта: " + e.getMessage()));
+                    .body(new Response("Activating error: " + e.getMessage()));
         }
     }
 }
