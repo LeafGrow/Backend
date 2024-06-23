@@ -127,7 +127,7 @@ public class UserController {
         }
     }
 
-    @DeleteMapping("/admin/schema-reset")
+    @DeleteMapping("/admin/schema-reset") // VERY DANGEROUS METHOD !!!
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(
             summary = "Reset the public schema",
