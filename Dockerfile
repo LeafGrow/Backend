@@ -1,8 +1,8 @@
 FROM maven:3.9.0-eclipse-temurin-17-alpine AS build
 COPY . /usr/src/app
 WORKDIR /usr/src/app
-RUN mvn clean package
-#RUN mvn clean package -DskipTests
+#RUN mvn clean package
+RUN mvn clean package -DskipTests
 
 FROM openjdk:17.0.1-jdk-slim
 RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
