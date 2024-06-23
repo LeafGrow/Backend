@@ -6,6 +6,8 @@ import de.leafgrow.leafgrow_project.security.sec_dto.ChangePasswordRequestDto;
 import de.leafgrow.leafgrow_project.service.interfaces.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.HashMap;
+import java.util.Map;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,9 +18,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -43,18 +42,12 @@ public class UserController {
     )
     public ResponseEntity<User> getUserInfo() {
 
-        //  Fix метод getUserInfo для использования информации проверенного
-        //  пользователя.
-        //  Удаляем параметр @RequestBody, поскольку email должен быть
-        //  получен из контекста аутентификации.
-
         try {
-            Authentication authentication =
-                    SecurityContextHolder.getContext().getAuthentication();
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             String userContent = authentication.getName();
             User user = service.loadUserByEmail(userContent);
             return ResponseEntity.ok(user);
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
     }
@@ -66,21 +59,18 @@ public class UserController {
     )
     public ResponseEntity<Response> deleteUser() {
         try {
-            Authentication authentication =
-                    SecurityContextHolder.getContext().getAuthentication();
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             String email = authentication.getName();
 
             User user = service.loadUserByEmail(email);
 
-            if(user == null) {
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User" +
-                        " not found.");
+            if (user == null) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found.");
             }
 
             service.delete(user);
-            return ResponseEntity.ok(new Response("User was successfully " +
-                    "deleted"));
-        } catch(ResponseStatusException e) {
+            return ResponseEntity.ok(new Response("User was successfully deleted"));
+        } catch (ResponseStatusException e) {
             throw e;
         }
     }
@@ -90,25 +80,22 @@ public class UserController {
             summary = "change user password",
             description = "Changing current user's password"
     )
-    public ResponseEntity<Response> changeUserPassword(@RequestBody ChangePasswordRequestDto newPassword) {
+    public ResponseEntity<Object> changeUserPassword(@RequestBody ChangePasswordRequestDto newPassword) {
 
         try {
-            Authentication authentication =
-                    SecurityContextHolder.getContext().getAuthentication();
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             String email = authentication.getName();
 
             User user = service.loadUserByEmail(email);
-            if(user == null) {
-                return ResponseEntity.status(404).body(new Response("User not" +
-                        " found"));
+            if (user == null) {
+                return ResponseEntity.status(404).body(new Response("User not found"));
             }
 
             user.setPassword(encoder.encode(newPassword.getNewPassword()));
             service.save(user);
 
-            return ResponseEntity.ok(new Response("Password was successfully " +
-                    "changed"));
-        } catch(Exception e) {
+            return ResponseEntity.ok(user);
+        } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
     }
