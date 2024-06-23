@@ -130,7 +130,7 @@ public class UserController {
     @DeleteMapping("/admin/schema-reset") // VERY DANGEROUS METHOD !!!
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(
-            summary = "Reset the public schema",
+            summary = "Drop the PUBLIC schema. VERY DANGEROUS METHOD!!!",
             description = "Drops and recreates the public schema. Accessible only to ADMIN users."
     )
     public ResponseEntity<Response> resetSchema() {
