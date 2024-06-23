@@ -56,6 +56,7 @@ public class PotServiceImpl implements PotService {
         }
     }
 
+    @Override
     @Transactional
     public Pot createPotForAdmin(User user){
         Pot pot = new Pot();
@@ -74,7 +75,6 @@ public class PotServiceImpl implements PotService {
         potRepository.save(pot);
 
         scheduler.scheduleAtFixedRate(() -> updateInstruction(pot), 24, 24, TimeUnit.HOURS);
-        //scheduler.scheduleAtFixedRate(() -> updateInstruction(pot), 24, 24, TimeUnit.SECONDS);
 
         return potRepository.save(pot);
 
@@ -94,24 +94,34 @@ public class PotServiceImpl implements PotService {
                     emailService.sendImportantEmail(pot.getUser());
                 }
             } else {
-                // Если инструкции на следующий день нет, деактивировать горшок или обнулить его
                 pot.setActive(false);
                 potRepository.save(pot);
             }
         }
     }
 
+    @Override
+    @Transactional
     public void skipDay(Pot pot) {
         int currentDay = pot.getInstruction().getDay();
-        int nextDay = (currentDay % MAX_DAYS) + 1; // Предполагая, что MAX_DAYS — это длина цикла.
+        int nextDay = (currentDay % MAX_DAYS) + 1;
         Instruction nextInstruction = instructionRepository.findByDay(nextDay);
         pot.setInstruction(nextInstruction);
         potRepository.save(pot);
     }
 
+    @Override
     public List<Pot> findPotsByUserId(Long userId) {
         List<Pot> pots = potRepository.findByUserId(userId);
         pots.sort(Comparator.comparingLong(Pot::getId));
         return pots;
+    }
+
+    @Override
+    @Transactional
+    public Pot deletePotById(Long id){
+        Pot pot = potRepository.findById(id).orElseThrow(() -> new RuntimeException("Pot not found"));
+        potRepository.delete(pot);
+        return pot;
     }
 }
