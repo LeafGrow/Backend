@@ -6,8 +6,10 @@ import de.leafgrow.leafgrow_project.security.sec_dto.ChangePasswordRequestDto;
 import de.leafgrow.leafgrow_project.service.interfaces.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,10 +27,13 @@ import java.util.Map;
 public class UserController {
     private UserService service;
     private BCryptPasswordEncoder encoder;
+    private JdbcTemplate jdbcTemplate;
 
-    public UserController(UserService service, BCryptPasswordEncoder encoder) {
+    public UserController(UserService service, BCryptPasswordEncoder encoder,
+                          JdbcTemplate jdbcTemplate) {
         this.service = service;
         this.encoder = encoder;
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     @GetMapping("/profile")
@@ -132,6 +137,25 @@ public class UserController {
             return ResponseEntity.ok(response);
         } catch(ResponseStatusException e) {
             throw e;
+        }
+    }
+
+    @DeleteMapping("/admin/schema-reset")
+    @PreAuthorize("hasRole('ADMIN')")
+    @Operation(
+            summary = "Reset the public schema",
+            description = "Drops and recreates the public schema. Accessible only to ADMIN users."
+    )
+    public ResponseEntity<Response> resetSchema() {
+        try {
+            String dropSchemaSql = "DROP SCHEMA public CASCADE";
+            String createSchemaSql = "CREATE SCHEMA public";
+
+            jdbcTemplate.execute(dropSchemaSql);
+            jdbcTemplate.execute(createSchemaSql);
+            return ResponseEntity.ok(new Response("PUBLIC schema was successfully reset"));
+        } catch (DataAccessException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response("Failed to reset database schema: " + e.getMessage()));
         }
     }
 }
