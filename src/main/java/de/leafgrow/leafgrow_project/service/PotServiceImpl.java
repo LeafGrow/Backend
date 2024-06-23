@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -57,14 +58,23 @@ public class PotServiceImpl implements PotService {
 
     @Override
     @Transactional
+    public Pot createPotForAdmin(User user){
+        Pot pot = new Pot();
+        pot.setUser(user);
+        pot.setInstruction(instructionRepository.findByDay(1));
+        potRepository.save(pot);
+        return pot;
+    }
+
+    @Override
+    @Transactional
     public Pot activatePot(Long potId) {
         Pot pot = potRepository.findById(potId).orElseThrow(() -> new RuntimeException("Pot not found"));
         pot.setActive(true);
         pot.setInstruction(instructionRepository.findByDay(1));
         potRepository.save(pot);
 
-        //scheduler.scheduleAtFixedRate(() -> updateInstruction(pot), 24, 24, TimeUnit.HOURS);
-        scheduler.scheduleAtFixedRate(() -> updateInstruction(pot), 24, 24, TimeUnit.SECONDS);
+        scheduler.scheduleAtFixedRate(() -> updateInstruction(pot), 24, 24, TimeUnit.HOURS);
 
         return potRepository.save(pot);
 
@@ -84,22 +94,34 @@ public class PotServiceImpl implements PotService {
                     emailService.sendImportantEmail(pot.getUser());
                 }
             } else {
-                // Если инструкции на следующий день нет, деактивировать горшок или обнулить его
                 pot.setActive(false);
                 potRepository.save(pot);
             }
         }
     }
 
+    @Override
+    @Transactional
     public void skipDay(Pot pot) {
         int currentDay = pot.getInstruction().getDay();
-        int nextDay = (currentDay % MAX_DAYS) + 1; // Предполагая, что MAX_DAYS — это длина цикла.
+        int nextDay = (currentDay % MAX_DAYS) + 1;
         Instruction nextInstruction = instructionRepository.findByDay(nextDay);
         pot.setInstruction(nextInstruction);
         potRepository.save(pot);
     }
 
+    @Override
     public List<Pot> findPotsByUserId(Long userId) {
-        return potRepository.findByUserId(userId);
+        List<Pot> pots = potRepository.findByUserId(userId);
+        pots.sort(Comparator.comparingLong(Pot::getId));
+        return pots;
+    }
+
+    @Override
+    @Transactional
+    public Pot deletePotById(Long id){
+        Pot pot = potRepository.findById(id).orElseThrow(() -> new RuntimeException("Pot not found"));
+        potRepository.delete(pot);
+        return pot;
     }
 }

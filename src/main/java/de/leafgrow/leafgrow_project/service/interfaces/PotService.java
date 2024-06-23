@@ -2,7 +2,6 @@ package de.leafgrow.leafgrow_project.service.interfaces;
 
 import de.leafgrow.leafgrow_project.domain.entity.Pot;
 import de.leafgrow.leafgrow_project.domain.entity.User;
-
 import java.util.List;
 
 public interface PotService {
@@ -12,10 +11,11 @@ public interface PotService {
 
     Pot activatePot(Long potId);
 
-    //void skipDay(Pot pot);
+    void skipDay(Pot pot);
 
     List<Pot> findPotsByUserId(Long userId);
 
+    Pot createPotForAdmin(User user);
 
-    void skipDay(Pot pot);
+    Pot deletePotById(Long id);
 }

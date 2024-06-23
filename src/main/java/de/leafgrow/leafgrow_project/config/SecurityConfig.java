@@ -47,19 +47,24 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/register").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/register/confirm").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/register/resent").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/auth/profile").authenticated() // Эндпоинт /api/auth/profile доступен для прошедших проверку подлинности пользователей
+                        .requestMatchers(HttpMethod.GET, "/api/auth/profile").authenticated()
                         .requestMatchers(HttpMethod.PATCH, "/api/auth/profile/change-password").authenticated()
                         .requestMatchers(HttpMethod.DELETE, "/api/auth/profile/delete-user").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/api/auth/admin/delete-user-by-email").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE,
+                                "/api/auth/admin/schema-reset").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/instructions/{day}").authenticated()
-                        .requestMatchers(HttpMethod.GET, "/api/pots/{potId}/instruction").authenticated()
-                        .requestMatchers(HttpMethod.POST, "/api/pots/{potId}/refresh").authenticated()
-                        .requestMatchers(HttpMethod.POST, "/api/pots/{potId}/activate").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/api/pots/{id}/instruction").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/api/pots/{id}/refresh").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/api/pots/{id}/activate").authenticated()
                         .requestMatchers(HttpMethod.POST, "/api/pots/create").authenticated()
-                        .requestMatchers(HttpMethod.POST, "/api/pots/{potId}/skip-day").hasRole("ADMIN")
-
+                        .requestMatchers(HttpMethod.DELETE, "/api/pots/{id}/delete").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/pots/{id}/skip-day").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/pots/admin/delete-pot-by-id").hasRole("ADMIN")  // Замена BeeKeeper
+                        .requestMatchers(HttpMethod.DELETE, "/api/pots/{id}/delete").hasRole("ADMIN") // Для Фронтенда
                         .requestMatchers(HttpMethod.GET, "/api/my").authenticated()
-
+                        .requestMatchers("/images/**").permitAll() // Разрешить доступ к статическим ресурсам
                         .anyRequest().authenticated())
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .addFilterAfter(filter, UsernamePasswordAuthenticationFilter.class)
