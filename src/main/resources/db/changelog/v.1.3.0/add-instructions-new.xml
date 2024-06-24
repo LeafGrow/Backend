@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="add_instructions_new" author="vasilii">
+
+        <insert tableName="instruction">
+            <column name="content" value="11"/>
+            <column name="is_important" value="true"/>
+            <column name="day" value="15"/>
+            <column name="image" value="222"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="day" value="16"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="is_important" value="true"/>
+            <column name="day" value="18"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="day" value="19"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="day" value="20"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="is_important" value="true"/>
+            <column name="day" value="21"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="day" value="22"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="day" value="23"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="is_important" value="true"/>
+            <column name="day" value="24"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="day" value="25"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="day" value="26"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="is_important" value="true"/>
+            <column name="day" value="27"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="day" value="28"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="day" value="29"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="is_important" value="true"/>
+            <column name="day" value="30"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="day" value="31"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="day" value="32"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="is_important" value="true"/>
+            <column name="day" value="33"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="day" value="35"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="is_important" value="true"/>
+            <column name="day" value="36"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="day" value="37"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="day" value="38"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="is_important" value="true"/>
+            <column name="day" value="39"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="day" value="40"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="day" value="41"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="is_important" value="true"/>
+            <column name="day" value="42"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="day" value="43"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="day" value="44"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="is_important" value="true"/>
+            <column name="day" value="45"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="day" value="46"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="day" value="47"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="is_important" value="true"/>
+            <column name="day" value="48"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="day" value="49"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="is_important" value="true"/>
+            <column name="day" value="51"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="day" value="52"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="day" value="53"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="is_important" value="true"/>
+            <column name="day" value="54"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="day" value="55"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="is_important" value="true"/>
+            <column name="day" value="56"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="day" value="57"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="is_important" value="true"/>
+            <column name="day" value="58"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="day" value="59"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="is_important" value="true"/>
+            <column name="day" value="60"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="is_important" value="true"/>
+            <column name="day" value="61"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="day" value="62"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="is_important" value="true"/>
+            <column name="day" value="63"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="day" value="64"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="is_important" value="true"/>
+            <column name="day" value="65"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="is_important" value="true"/>
+            <column name="day" value="66"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="is_important" value="true"/>
+            <column name="day" value="67"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="is_important" value="true"/>
+            <column name="day" value="68"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="is_important" value="true"/>
+            <column name="day" value="69"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="day" value="70"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="day" value="71"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="is_important" value="true"/>
+            <column name="day" value="72"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="day" value="73"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="day" value="74"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="is_important" value="true"/>
+            <column name="day" value="75"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="day" value="76"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="day" value="77"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="is_important" value="true"/>
+            <column name="day" value="78"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="is_important" value="true"/>
+            <column name="day" value="79"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="is_important" value="true"/>
+            <column name="day" value="80"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="is_important" value="true"/>
+            <column name="day" value="81"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="is_important" value="true"/>
+            <column name="day" value="82"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="is_important" value="true"/>
+            <column name="day" value="83"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="is_important" value="true"/>
+            <column name="day" value="84"/>
+            <column name="image" value="333"/>
+        </insert>
+
+        <insert tableName="instruction">
+            <column name="content" value="222"/>
+            <column name="is_important" value="true"/>
+            <column name="day" value="85"/>
+            <column name="image" value="333"/>
+        </insert>
+
+    </changeSet>
+</databaseChangeLog>

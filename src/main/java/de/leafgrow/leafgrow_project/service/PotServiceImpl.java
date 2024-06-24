@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 public class PotServiceImpl implements PotService {
-    private static final int MAX_DAYS = 18;
+    private static final int MAX_DAYS = 84;
     private PotRepository potRepository;
     private InstructionRepository instructionRepository;
     private InstructionService instructionService;
